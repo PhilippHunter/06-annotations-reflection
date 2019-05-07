@@ -17,9 +17,18 @@ public final class Joke {
 		return number;
 	}
 
+	public void setNumber(int number) { this.number = number; }
+
 	public String getContent() {
 		return content;
 	}
+
+	public void setContent(String content) { this.content = content; }
+
+	public String[] getRubrics() { return rubrics; }
+
+	public void setRubrics(String[] rubrics) { this.rubrics = rubrics; }
+
 
 	@Override
 	public boolean equals(Object o) {
