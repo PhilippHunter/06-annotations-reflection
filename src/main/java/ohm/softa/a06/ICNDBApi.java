@@ -3,6 +3,8 @@ package ohm.softa.a06;
 import ohm.softa.a06.model.Joke;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import java.util.List;
 
@@ -11,15 +13,15 @@ import java.util.List;
  * Created on 11/10/17.
  */
 public interface ICNDBApi {
-	@GET
+	@GET("joke/random")
 	Call<Joke> getRandomJoke();
 
-	@GET
-	Call<Joke> getRandomJoke(String[] categoriesToInclude);
+	@GET("joke/random")
+	Call<Joke> getRandomJoke(@Query("limitTo") String[] categoriesToInclude);
 
-	@GET
-	Call<List<Joke>> getRandomJokes(int count);
+	@GET("joke/randomCount/{count}")
+	Call<List<Joke>> getRandomJokes(@Path("count") int count);
 
-	@GET
-	Call<Joke> getJokeById(int id);
+	@GET("joke/{id}")
+	Call<Joke> getJokeById(@Path("id") int number);
 }
