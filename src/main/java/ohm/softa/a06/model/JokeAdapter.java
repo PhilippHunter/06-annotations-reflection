@@ -7,16 +7,16 @@ import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
 
-public class JokeAdapter<T> extends TypeAdapter<T> {
+public class JokeAdapter extends TypeAdapter<Joke> {
 
 	@Override
-	public void write(JsonWriter out, T value) throws IOException {
+	public void write(JsonWriter out, Joke value) throws IOException {
 
 	}
 
 	@Override
-	public T read(JsonReader in) throws IOException {
-		Joke joke = new Joke();
+	public Joke read(JsonReader in) throws IOException {
+		Joke joke = null;
 		final Gson gson = new Gson();
 
 		in.beginObject();
@@ -24,11 +24,10 @@ public class JokeAdapter<T> extends TypeAdapter<T> {
 			switch (in.nextName()) {
 				case "type":
 					if (!in.nextString().equals("success"))
-						throw new IllegalArgumentException("No Joke found");
-					else
-						break;
+						throw new IOException("No Joke found");
+					break;
 				case "value":
-					joke = gson.fromJson(in.nextString(), Joke.class);
+					joke = gson.fromJson(in, Joke.class);
 					break;
 			}
 		}

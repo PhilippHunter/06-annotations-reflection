@@ -4,7 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ohm.softa.a06.model.Joke;
 import ohm.softa.a06.model.JokeAdapter;
+import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import java.io.IOException;
 
 /**
  * @author Peter Kurfer
@@ -20,10 +25,19 @@ public class App {
 		final Gson gson = gsonBuilder.create();
 
 		Retrofit retrofit = new Retrofit.Builder()
-			.baseUrl("https://api.github.com/")
+			.baseUrl("http://api.icndb.com")
+			.addConverterFactory(GsonConverterFactory.create())
 			.build();
 
 		ICNDBApi service = retrofit.create(ICNDBApi.class);
+
+		try {
+			Joke j = service.getRandomJoke().execute().body();
+			System.out.println(j);
+		}
+		catch(IOException e) {
+			System.out.println("FAIL: " + e.getMessage());
+		}
 	}
 
 }
