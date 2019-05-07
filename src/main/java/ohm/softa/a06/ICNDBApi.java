@@ -13,15 +13,18 @@ import java.util.List;
  * Created on 11/10/17.
  */
 public interface ICNDBApi {
-	@GET("joke/random")
+	@GET("/jokes/random")
 	Call<Joke> getRandomJoke();
 
-	@GET("joke/random")
+	@GET("/jokes/random")
 	Call<Joke> getRandomJoke(@Query("limitTo") String[] categoriesToInclude);
 
-	@GET("joke/randomCount/{count}")
+	@GET("/jokes/random/{count}")
 	Call<List<Joke>> getRandomJokes(@Path("count") int count);
 
-	@GET("joke/{id}")
+	@GET("/jokes/{id}")
 	Call<Joke> getJokeById(@Path("id") int number);
+
+	@GET("/categories")
+	Call<Joke> getCategories();
 }
